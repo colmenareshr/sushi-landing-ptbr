@@ -14,13 +14,16 @@
       <video id="v-clip-3" class="absolute inset-0 w-full h-full object-cover opacity-0 will-change-transform" muted playsinline preload="auto"></video>
       <video id="v-clip-4" class="absolute inset-0 w-full h-full object-cover opacity-0 will-change-transform" muted playsinline preload="auto"></video>
 
-      <!-- Overlay Cinematográfico com Gradiente Suave para Legibilidade Extrema -->
-      <div class="absolute inset-0 bg-gradient-to-t from-[#090B0E] via-[#090B0E]/65 to-[#090B0E]/75 pointer-events-none"></div>
-      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_15%,_#090B0E_90%)] pointer-events-none"></div>
+      <!-- Overlay Cinematográfico Leve: Claridade Máxima para Vídeos e Transições -->
+      <!-- Scrim inferior direcionado para contraste do texto sem escurecer a cena -->
+      <div class="absolute inset-0 bg-gradient-to-t from-[#090B0E]/80 via-[#090B0E]/15 to-transparent pointer-events-none"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-[#090B0E]/70 via-transparent to-transparent w-full sm:w-1/2 pointer-events-none"></div>
+      <!-- Scrim superior suave para nitidez do cabeçalho -->
+      <div class="absolute inset-0 bg-gradient-to-b from-[#090B0E]/50 via-transparent to-transparent h-28 pointer-events-none"></div>
     </div>
 
     <!-- Indicador Lateral de Rota (Navegação Interativa de 4 Cenas) -->
-    <div class="hidden lg:flex flex-col gap-6 absolute right-8 top-1/2 -translate-y-1/2 z-30 font-mono text-xs tracking-widest">
+    <div class="hidden lg:flex flex-col gap-5 absolute right-8 top-1/2 -translate-y-1/2 z-30 font-mono text-xs tracking-widest bg-[#090B0E]/60 backdrop-blur-md p-4 rounded-2xl border border-white/5">
       <button type="button" class="route-node flex items-center gap-3 text-left focus:outline-none transition-all duration-300" data-index="0">
         <span class="w-2.5 h-2.5 rounded-full border border-[#D4AF37] bg-[#D4AF37] transition-all"></span>
         <span class="text-white text-[11px] uppercase tracking-wider">01 · A Chegada</span>
@@ -39,117 +42,119 @@
       </button>
     </div>
 
-    <!-- Camadas de Copywriting (Uma para cada etapa do vôo de câmera) -->
-    <div class="relative z-20 max-w-5xl mx-auto px-6 text-center flex flex-col items-center">
-      
-      <!-- CENA 1: A Chegada / Hero Principal -->
-      <article class="scene-copy transition-all duration-500 max-w-3xl opacity-100" id="copy-0">
-        <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-[#D4AF37]/30 bg-[#161B24]/85 backdrop-blur-md mb-8">
-          <span class="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse"></span>
-          <span class="text-[11px] font-mono tracking-[0.25em] text-[#F3E5AB] uppercase">
-            Sessão Noturna Exclusiva · 12 Lugares
-          </span>
-        </div>
-
-        <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white leading-[1.08] mb-6">
-          O verdadeiro Omakase no Batel. <span class="bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#D4AF37] bg-clip-text text-transparent">Sem pressa. Sem concessões.</span>
-        </h1>
-
-        <p class="text-base sm:text-xl text-slate-300 font-light leading-relaxed mb-10 max-w-2xl mx-auto">
-          Peixes nobres com até 14 dias de maturação a seco. Arroz temperado com vinagre Akazu centenário. Uma experiência íntima diante do sushiman para apenas 12 convidados por noite.
-        </p>
-
-        <div class="flex flex-col items-center justify-center gap-3 w-full">
-          <div class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full">
-            <a
-              href="https://wa.me/5541999999999?text=Ol%C3%A1!%20Gostaria%20de%20consultar%20disponibilidade%20para%20o%20Omakase%20no%20Kuro"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full text-sm font-semibold tracking-widest uppercase bg-gradient-to-r from-[#D4AF37] to-[#B38F24] text-[#090B0E] hover:from-[#F3E5AB] hover:to-[#D4AF37] shadow-[0_0_30px_rgba(212,175,55,0.35)] hover:shadow-[0_0_40px_rgba(212,175,55,0.6)] transition-all duration-300 transform hover:-translate-y-1"
-            >
-              <span>Quero reservar no WhatsApp</span>
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </a>
-
-            <a
-              href="#omakase"
-              class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-full text-sm font-semibold tracking-widest uppercase border border-white/20 text-white hover:border-[#D4AF37] hover:text-[#D4AF37] bg-black/40 backdrop-blur-sm transition-all duration-300"
-            >
-              Ver os 3 Menus
-            </a>
+    <!-- Camadas de Copywriting: Ancoradas no canto inferior esquerdo para liberar a visão dos vídeos -->
+    <div class="absolute bottom-12 sm:bottom-16 lg:bottom-20 left-6 sm:left-12 lg:left-16 z-20 max-w-xl sm:max-w-2xl text-left pointer-events-none pr-6">
+      <div class="grid grid-cols-1 grid-rows-1 items-end">
+        
+        <!-- CENA 1: A Chegada / Hero Principal -->
+        <article class="scene-copy col-start-1 row-start-1 transition-all duration-500 opacity-100 pointer-events-auto" id="copy-0">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#D4AF37]/30 bg-[#090B0E]/80 backdrop-blur-md mb-3">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#D4AF37] animate-pulse"></span>
+            <span class="text-[10px] sm:text-[11px] font-mono tracking-[0.2em] text-[#F3E5AB] uppercase">
+              Sessão Noturna Exclusiva · 12 Lugares
+            </span>
           </div>
-          <!-- Click Trigger Joanna Wiebe (neutralizador de fricción) -->
-          <span class="text-[11px] font-mono text-slate-400 tracking-wider">
-            ✓ Sem cobrança de cancelamento até 24h · Resposta rápida pelo Concierge
+
+          <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-[1.1] mb-3">
+            O verdadeiro Omakase no Batel. <span class="bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#D4AF37] bg-clip-text text-transparent">Sem pressa. Sem concessões.</span>
+          </h1>
+
+          <p class="text-xs sm:text-sm md:text-base text-slate-200 font-light leading-relaxed mb-4 max-w-lg">
+            Peixes nobres com até 14 dias de maturação a seco e arroz temperado com vinagre Akazu centenário. Uma experiência íntima diante do sushiman.
+          </p>
+
+          <div class="flex flex-col items-start gap-2.5">
+            <div class="flex flex-wrap items-center gap-3">
+              <a
+                href="https://wa.me/5541999999999?text=Ol%C3%A1!%20Gostaria%20de%20consultar%20disponibilidade%20para%20o%20Omakase%20no%20Kuro"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center justify-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 rounded-full text-xs font-semibold tracking-wider uppercase bg-gradient-to-r from-[#D4AF37] to-[#B38F24] text-[#090B0E] hover:from-[#F3E5AB] hover:to-[#D4AF37] shadow-[0_0_20px_rgba(212,175,55,0.35)] transition-all duration-300 transform hover:-translate-y-0.5"
+              >
+                <span>Quero reservar no WhatsApp</span>
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </a>
+
+              <a
+                href="#omakase"
+                class="inline-flex items-center justify-center px-4 py-2.5 sm:px-5 sm:py-3 rounded-full text-xs font-semibold tracking-wider uppercase border border-white/20 text-white hover:border-[#D4AF37] hover:text-[#D4AF37] bg-black/40 backdrop-blur-sm transition-all duration-300"
+              >
+                Ver os 3 Menus
+              </a>
+            </div>
+            
+            <!-- Click Trigger Joanna Wiebe (neutralizador de fricção) -->
+            <span class="text-[10px] sm:text-[11px] font-mono text-slate-300 tracking-wider">
+              ✓ Sem cobrança de cancelamento até 24h · Resposta rápida pelo Concierge
+            </span>
+          </div>
+
+          <div class="mt-4 flex items-center gap-2 text-[10px] sm:text-[11px] font-mono tracking-widest text-[#D4AF37]/90 uppercase animate-bounce">
+            <span>Role para explorar o restaurante</span>
+            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </div>
+        </article>
+
+        <!-- CENA 2: O Salão -->
+        <article class="scene-copy col-start-1 row-start-1 hidden opacity-0 transition-all duration-500 pointer-events-auto max-w-lg p-5 sm:p-6 rounded-2xl bg-[#090B0E]/80 backdrop-blur-md border border-white/10 shadow-2xl" id="copy-1">
+          <span class="text-[10px] sm:text-[11px] font-mono tracking-[0.25em] text-[#D4AF37] uppercase block mb-1.5 font-semibold">
+            02 · Atmosfera e Arquitetura
           </span>
-        </div>
+          <h2 class="text-xl sm:text-2xl md:text-3xl font-extrabold text-white leading-tight mb-2">
+            Madeira carbonizada, lanternas Washi e silêncio.
+          </h2>
+          <p class="text-slate-300 text-xs sm:text-sm font-light leading-relaxed">
+            Um refúgio acolhedor no Batel. Sem música alta. Sem mesas coladas. Apenas iluminação cênica pontual e o calor da madeira natural.
+          </p>
+        </article>
 
-        <div class="mt-12 flex items-center justify-center gap-2 text-xs font-mono tracking-widest text-[#D4AF37]/80 uppercase animate-bounce">
-          <span>Role para explorar o restaurante</span>
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-          </svg>
-        </div>
-      </article>
+        <!-- CENA 3: O Balcão Omakase -->
+        <article class="scene-copy col-start-1 row-start-1 hidden opacity-0 transition-all duration-500 pointer-events-auto max-w-lg p-5 sm:p-6 rounded-2xl bg-[#090B0E]/80 backdrop-blur-md border border-white/10 shadow-2xl" id="copy-2">
+          <span class="text-[10px] sm:text-[11px] font-mono tracking-[0.25em] text-[#D4AF37] uppercase block mb-1.5 font-semibold">
+            03 · O Balcão de 12 Lugares
+          </span>
+          <h2 class="text-xl sm:text-2xl md:text-3xl font-extrabold text-white leading-tight mb-2">
+            12 lugares diante da lâmina do sushiman.
+          </h2>
+          <p class="text-slate-300 text-xs sm:text-sm font-light leading-relaxed">
+            Cada nigiri é moldado à mão na temperatura exata da palma. Da tábua à sua mão em segundos, servido sobre ardósia vulcânica aquecida.
+          </p>
+        </article>
 
-      <!-- CENA 2: O Salão -->
-      <article class="scene-copy hidden opacity-0 transition-all duration-500 max-w-2xl" id="copy-1">
-        <span class="text-xs font-mono tracking-[0.3em] text-[#D4AF37] uppercase block mb-3">
-          02 / Atmosfera e Arquitetura
-        </span>
-        <h2 class="text-3xl sm:text-5xl font-extrabold text-white mb-4">
-          Madeira carbonizada, lanternas Washi e silêncio.
-        </h2>
-        <p class="text-slate-300 text-base sm:text-lg font-light leading-relaxed">
-          Um refúgio acolhedor no Batel. Sem música alta. Sem mesas coladas. Apenas iluminação cênica pontual e o calor da madeira natural.
-        </p>
-      </article>
+        <!-- CENA 4: A Criação de Autor -->
+        <article class="scene-copy col-start-1 row-start-1 hidden opacity-0 transition-all duration-500 pointer-events-auto max-w-lg p-5 sm:p-6 rounded-2xl bg-[#090B0E]/80 backdrop-blur-md border border-white/10 shadow-2xl" id="copy-3">
+          <span class="text-[10px] sm:text-[11px] font-mono tracking-[0.25em] text-[#D4AF37] uppercase block mb-1.5 font-semibold">
+            04 · Criações de Autor
+          </span>
+          <h2 class="text-xl sm:text-2xl md:text-3xl font-extrabold text-white leading-tight mb-2">
+            Peixes maturados no ponto máximo de Umami.
+          </h2>
+          <p class="text-slate-300 text-xs sm:text-sm font-light leading-relaxed">
+            Bluefin Otoro que derrete na boca, vieiras frescas de Hokkaido, ouriço-do-mar e Wagyu A5 finalizado com flor de sal e trufa branca.
+          </p>
+        </article>
 
-      <!-- CENA 3: O Balcão Omakase -->
-      <article class="scene-copy hidden opacity-0 transition-all duration-500 max-w-2xl" id="copy-2">
-        <span class="text-xs font-mono tracking-[0.3em] text-[#D4AF37] uppercase block mb-3">
-          03 / O Balcão de 12 Lugares
-        </span>
-        <h2 class="text-3xl sm:text-5xl font-extrabold text-white mb-4">
-          12 lugares diante da lâmina do sushiman.
-        </h2>
-        <p class="text-slate-300 text-base sm:text-lg font-light leading-relaxed">
-          Cada nigiri é moldado à mão na temperatura exata da palma. Da tábua à sua mão em segundos, servido sobre ardósia vulcânica aquecida.
-        </p>
-      </article>
-
-      <!-- CENA 4: A Criação de Autor -->
-      <article class="scene-copy hidden opacity-0 transition-all duration-500 max-w-2xl" id="copy-3">
-        <span class="text-xs font-mono tracking-[0.3em] text-[#D4AF37] uppercase block mb-3">
-          04 / Criações de Autor
-        </span>
-        <h2 class="text-3xl sm:text-5xl font-extrabold text-white mb-4">
-          Peixes maturados no ponto máximo de Umami.
-        </h2>
-        <p class="text-slate-300 text-base sm:text-lg font-light leading-relaxed">
-          Bluefin Otoro que derrete na boca, vieiras frescas de Hokkaido, ouriço-do-mar e Wagyu A5 finalizado com flor de sal e trufa branca.
-        </p>
-      </article>
-
+      </div>
     </div>
 
-    <!-- Badges de Prova Social Inferiores -->
-    <div class="absolute bottom-6 left-0 right-0 z-30 max-w-6xl mx-auto px-6 flex flex-wrap items-center justify-between gap-4 text-xs font-mono tracking-wider text-slate-400">
-      <div class="flex items-center gap-2">
+    <!-- Badges de Prova Social Inferiores (Ancorados à Direita) -->
+    <div class="absolute bottom-5 right-6 sm:right-12 lg:right-16 z-30 hidden md:flex items-center gap-3 text-[11px] font-mono tracking-wider text-slate-300 bg-[#090B0E]/75 border border-white/10 px-4 py-2 rounded-full backdrop-blur-md">
+      <div class="flex items-center gap-1.5">
         <span class="text-[#D4AF37]">★★★★★</span>
-        <span class="text-slate-200">4.9 no Google</span>
-        <span class="text-slate-500">(180+ avaliações verificadas)</span>
+        <span class="text-white font-medium">4.9 no Google</span>
+        <span class="text-slate-400">(180+ avaliações)</span>
       </div>
-      <div class="flex items-center gap-6">
-        <span class="flex items-center gap-2">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-          Apenas 12 assentos por sessão
-        </span>
-        <span class="hidden sm:inline text-slate-500">·</span>
-        <span class="hidden sm:inline">Av. Batel, Curitiba</span>
+      <span class="text-white/20">·</span>
+      <div class="flex items-center gap-1.5">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+        <span>12 assentos por sessão</span>
       </div>
+      <span class="text-white/20">·</span>
+      <span class="text-slate-400">Batel, Curitiba</span>
     </div>
   </div>
 </section>
@@ -261,15 +266,23 @@
         }
       });
 
-      // Atualizar textos e marcadores
+      // Atualizar textos e marcadores sem race conditions
       copies.forEach((copy, idx) => {
         if (!copy) return;
         if (idx === currentSegment) {
           copy.classList.remove('hidden');
-          setTimeout(() => copy.classList.remove('opacity-0'), 20);
+          requestAnimationFrame(() => {
+            copy.classList.remove('opacity-0');
+            copy.classList.add('opacity-100');
+          });
         } else {
+          copy.classList.remove('opacity-100');
           copy.classList.add('opacity-0');
-          setTimeout(() => copy.classList.add('hidden'), 350);
+          setTimeout(() => {
+            if (activeSceneIndex !== idx) {
+              copy.classList.add('hidden');
+            }
+          }, 350);
         }
       });
 
