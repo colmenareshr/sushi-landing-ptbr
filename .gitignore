@@ -25,3 +25,4 @@ Thumbs.db
 
 # Raw heavy videos
 public/videos/raw/
+reels/*.webm
