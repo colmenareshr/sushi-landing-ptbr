@@ -1,0 +1,82 @@
+---
+// Header.astro - Kuro Contemporary Sushi
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-[#090B0E]/90 backdrop-blur-md border-b border-[#D4AF37]/15 transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+    <!-- Brand Logo -->
+    <a href="#" class="group flex flex-col items-start focus:outline-none">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-[#D4AF37] group-hover:scale-125 transition-transform duration-300"></span>
+        <span class="text-2xl font-extrabold tracking-[0.28em] text-white uppercase group-hover:text-[#F3E5AB] transition-colors">
+          KURO
+        </span>
+      </div>
+      <span class="text-[9px] font-mono tracking-[0.35em] text-[#D4AF37]/90 uppercase pl-4">
+        Contemporary Sushi · Batel
+      </span>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="hidden md:flex items-center gap-8 text-sm font-medium tracking-wider text-slate-300">
+      <a href="#experiencia" class="hover:text-[#D4AF37] transition-colors">O Conceito</a>
+      <a href="#omakase" class="hover:text-[#D4AF37] transition-colors">Omakase & Menu</a>
+      <a href="#filosofia" class="hover:text-[#D4AF37] transition-colors">A Filosofia</a>
+      <a href="#avaliacoes" class="hover:text-[#D4AF37] transition-colors">Depoimentos</a>
+      <a href="#faq" class="hover:text-[#D4AF37] transition-colors">FAQ</a>
+    </nav>
+
+    <!-- Reservation CTA -->
+    <div class="flex items-center gap-4">
+      <a
+        href="#reserva"
+        class="inline-flex items-center justify-center px-5 py-2.5 rounded-full text-xs font-semibold tracking-widest uppercase bg-gradient-to-r from-[#D4AF37] to-[#B38F24] text-[#090B0E] hover:from-[#F3E5AB] hover:to-[#D4AF37] shadow-[0_0_20px_rgba(212,175,55,0.25)] hover:shadow-[0_0_25px_rgba(212,175,55,0.45)] transition-all duration-300 transform hover:-translate-y-0.5"
+      >
+        Reservar Mesa
+      </a>
+
+      <!-- Mobile Menu Button -->
+      <button
+        id="mobile-menu-btn"
+        type="button"
+        class="md:hidden text-slate-300 hover:text-white p-2 focus:outline-none"
+        aria-label="Abrir menu"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Dropdown -->
+  <div id="mobile-menu" class="hidden md:hidden bg-[#0D1016] border-b border-[#D4AF37]/20 px-6 py-6 space-y-4">
+    <a href="#experiencia" class="block text-slate-300 hover:text-[#D4AF37] text-base py-1">O Conceito</a>
+    <a href="#omakase" class="block text-slate-300 hover:text-[#D4AF37] text-base py-1">Omakase & Menu</a>
+    <a href="#filosofia" class="block text-slate-300 hover:text-[#D4AF37] text-base py-1">A Filosofia</a>
+    <a href="#avaliacoes" class="block text-slate-300 hover:text-[#D4AF37] text-base py-1">Depoimentos</a>
+    <a href="#faq" class="block text-slate-300 hover:text-[#D4AF37] text-base py-1">FAQ</a>
+    <div class="pt-2">
+      <a
+        href="#reserva"
+        class="w-full inline-flex items-center justify-center px-5 py-3 rounded-full text-xs font-semibold tracking-widest uppercase bg-[#D4AF37] text-[#090B0E]"
+      >
+        Reservar Mesa pelo WhatsApp
+      </a>
+    </div>
+  </div>
+</header>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  if (btn && menu) {
+    btn.addEventListener('click', () => {
+      menu.classList.toggle('hidden');
+    });
+    // Fechar ao clicar em qualquer link
+    menu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => menu.classList.add('hidden'));
+    });
+  }
+</script>

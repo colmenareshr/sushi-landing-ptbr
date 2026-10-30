@@ -1,0 +1,23 @@
+{
+  "name": "kuro-sushi-landing",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Landing page de alta conversão para Kuro Contemporary Sushi (Curitiba, PR) com arquitetura Scroll World",
+  "scripts": {
+    "dev": "astro dev --host=0.0.0.0",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/colmenareshr/sushi-landing-ptbr.git"
+  },
+  "author": "Humberto Colmenares <colmenareshr@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@tailwindcss/vite": "^4.1.14",
+    "astro": "^5.18.2",
+    "tailwindcss": "^4.1.14"
+  }
+}

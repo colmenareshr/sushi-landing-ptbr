@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import HeroScrollCanvas from '../components/HeroScrollCanvas.astro';
+import TaglineReveal from '../components/TaglineReveal.astro';
+import OmakaseMenu from '../components/OmakaseMenu.astro';
+import ChefStory from '../components/ChefStory.astro';
+import SocialProof from '../components/SocialProof.astro';
+import FaqSection from '../components/FaqSection.astro';
+import ReservationCta from '../components/ReservationCta.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout
+  title="KURO Contemporary Sushi · Omakase Exclusivo no Batel, Curitiba"
+  description="A alta gastronomia japonesa reinventada em Curitiba. Omakase sensorial em 12 tempos para apenas 12 clientes por noite no Batel. Peixes maturados a seco e hospitalidade autêntica."
+>
+  <Header />
+  <main>
+    <HeroScrollCanvas />
+    <TaglineReveal />
+    <OmakaseMenu />
+    <ChefStory />
+    <SocialProof />
+    <FaqSection />
+    <ReservationCta />
+  </main>
+  <Footer />
+</Layout>

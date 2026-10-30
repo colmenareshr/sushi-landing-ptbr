@@ -1,0 +1,273 @@
+---
+// HeroScrollCanvas.astro - Scroll World Interativo com Canvas / Vídeo Sync
+---
+
+<section id="hero-scroll" class="relative w-full h-[320vh] bg-[#090B0E]">
+  <!-- Viewport Fixo durante o Scroll -->
+  <div class="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
+    
+    <!-- Background Canvas / Video Scrubbing -->
+    <div class="absolute inset-0 z-0">
+      <canvas id="scroll-world-canvas" class="w-full h-full object-cover"></canvas>
+      
+      <!-- Overlay Gradiente Escuro Cinematográfico para Legibilidade Extrema -->
+      <div class="absolute inset-0 bg-gradient-to-t from-[#090B0E] via-[#090B0E]/60 to-[#090B0E]/70 pointer-events-none"></div>
+      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_20%,_#090B0E_90%)] pointer-events-none"></div>
+    </div>
+
+    <!-- Indicador Lateral de Progresso do Scroll World (Estilo Midudev) -->
+    <div class="hidden lg:flex flex-col gap-6 absolute right-8 top-1/2 -translate-y-1/2 z-20 font-mono text-xs tracking-widest">
+      <div class="flex items-center gap-3 group transition-all duration-300" id="step-node-1">
+        <span class="w-2.5 h-2.5 rounded-full border border-[#D4AF37] bg-[#D4AF37] transition-all"></span>
+        <span class="text-white text-[11px] uppercase tracking-wider">01 · A Chegada</span>
+      </div>
+      <div class="flex items-center gap-3 group transition-all duration-300 opacity-40" id="step-node-2">
+        <span class="w-2.5 h-2.5 rounded-full border border-[#D4AF37] bg-transparent transition-all"></span>
+        <span class="text-white text-[11px] uppercase tracking-wider">02 · O Salão</span>
+      </div>
+      <div class="flex items-center gap-3 group transition-all duration-300 opacity-40" id="step-node-3">
+        <span class="w-2.5 h-2.5 rounded-full border border-[#D4AF37] bg-transparent transition-all"></span>
+        <span class="text-white text-[11px] uppercase tracking-wider">03 · Balcão Omakase</span>
+      </div>
+      <div class="flex items-center gap-3 group transition-all duration-300 opacity-40" id="step-node-4">
+        <span class="w-2.5 h-2.5 rounded-full border border-[#D4AF37] bg-transparent transition-all"></span>
+        <span class="text-white text-[11px] uppercase tracking-wider">04 · Pratos de Autor</span>
+      </div>
+    </div>
+
+    <!-- Conteúdo Dinâmico por Fase do Scroll -->
+    <div class="relative z-10 max-w-5xl mx-auto px-6 text-center flex flex-col items-center">
+      
+      <!-- FASE 1: Hero Principal (Above the Fold) -->
+      <div id="content-phase-1" class="transition-all duration-700 max-w-3xl">
+        <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-[#D4AF37]/30 bg-[#161B24]/80 backdrop-blur-md mb-8">
+          <span class="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse"></span>
+          <span class="text-[11px] font-mono tracking-[0.25em] text-[#F3E5AB] uppercase">
+            01 / Experiência Omakase Exclusiva
+          </span>
+        </div>
+
+        <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white leading-[1.08] mb-6">
+          A arte do sushi contemporâneo em <span class="bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#D4AF37] bg-clip-text text-transparent">Curitiba</span>.
+        </h1>
+
+        <p class="text-base sm:text-xl text-slate-300 font-light leading-relaxed mb-10 max-w-2xl mx-auto">
+          Peixes nobres maturados a seco, técnica milenar e uma jornada sensorial imersiva para apenas 12 convidados por sessão no Batel.
+        </p>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full">
+          <a
+            href="https://wa.me/5541999999999?text=Ol%C3%A1!%20Gostaria%20de%20consultar%20disponibilidade%20para%20o%20Omakase%20no%20Kuro"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full text-sm font-semibold tracking-widest uppercase bg-gradient-to-r from-[#D4AF37] to-[#B38F24] text-[#090B0E] hover:from-[#F3E5AB] hover:to-[#D4AF37] shadow-[0_0_30px_rgba(212,175,55,0.35)] hover:shadow-[0_0_40px_rgba(212,175,55,0.6)] transition-all duration-300 transform hover:-translate-y-1"
+          >
+            <span>Reservar pelo WhatsApp</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </a>
+
+          <a
+            href="#omakase"
+            class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-full text-sm font-semibold tracking-widest uppercase border border-white/20 text-white hover:border-[#D4AF37] hover:text-[#D4AF37] bg-black/40 backdrop-blur-sm transition-all duration-300"
+          >
+            Ver os Menus
+          </a>
+        </div>
+
+        <!-- Indicador de Scroll -->
+        <div class="mt-12 flex items-center justify-center gap-2 text-xs font-mono tracking-widest text-[#D4AF37]/80 uppercase animate-bounce">
+          <span>Role para explorar o restaurante</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
+        </div>
+      </div>
+
+      <!-- FASE 2: O Salão (Surge durante o scroll) -->
+      <div id="content-phase-2" class="hidden opacity-0 transition-all duration-700 max-w-2xl">
+        <span class="text-xs font-mono tracking-[0.3em] text-[#D4AF37] uppercase block mb-3">
+          02 / Atmosfera e Arquitetura
+        </span>
+        <h2 class="text-3xl sm:text-5xl font-extrabold text-white mb-4">
+          Silêncio, madeira nobre e penumbra acolhedora.
+        </h2>
+        <p class="text-slate-300 text-base sm:text-lg font-light leading-relaxed">
+          Inspirado na arquitetura Wabi-Sabi com madeira carbonizada Yakisugi e lanternas artesanais de papel Washi. Um refúgio intimista longe do ruído da cidade.
+        </p>
+      </div>
+
+      <!-- FASE 3: O Balcão Omakase -->
+      <div id="content-phase-3" class="hidden opacity-0 transition-all duration-700 max-w-2xl">
+        <span class="text-xs font-mono tracking-[0.3em] text-[#D4AF37] uppercase block mb-3">
+          03 / O Balcão de 12 Lugares
+        </span>
+        <h2 class="text-3xl sm:text-5xl font-extrabold text-white mb-4">
+          Frente a frente com o mestre sushiman.
+        </h2>
+        <p class="text-slate-300 text-base sm:text-lg font-light leading-relaxed">
+          Cada peça é moldada à mão em tempo real, na temperatura exata do corpo humano, e servida diretamente sobre pedra ardósia vulcânica.
+        </p>
+      </div>
+
+      <!-- FASE 4: A Criação de Autor -->
+      <div id="content-phase-4" class="hidden opacity-0 transition-all duration-700 max-w-2xl">
+        <span class="text-xs font-mono tracking-[0.3em] text-[#D4AF37] uppercase block mb-3">
+          04 / Alta Gastronomia
+        </span>
+        <h2 class="text-3xl sm:text-5xl font-extrabold text-white mb-4">
+          Peixes maturados no ponto exato de Umami.
+        </h2>
+        <p class="text-slate-300 text-base sm:text-lg font-light leading-relaxed">
+          Bluefin Otoro, Vieiras de Hokkaido, Ouriço-do-Mar e Wagyu A5 com lâminas de trufa branca e flor de sal Maldon.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Badges de Prova Social Inferiores -->
+    <div class="absolute bottom-6 left-0 right-0 z-20 max-w-6xl mx-auto px-6 flex flex-wrap items-center justify-between gap-4 text-xs font-mono tracking-wider text-slate-400">
+      <div class="flex items-center gap-2">
+        <span class="text-[#D4AF37]">★★★★★</span>
+        <span class="text-slate-200">4.9 no Google</span>
+        <span class="text-slate-500">(180+ avaliações verificadas)</span>
+      </div>
+      <div class="flex items-center gap-6">
+        <span class="flex items-center gap-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+          Apenas 12 assentos por sessão
+        </span>
+        <span class="hidden sm:inline text-slate-500">·</span>
+        <span class="hidden sm:inline">Av. Batel, Curitiba</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Motor de Renderização de Canvas / Scroll World
+  const canvas = document.getElementById('scroll-world-canvas') as HTMLCanvasElement;
+  const heroSection = document.getElementById('hero-scroll');
+  
+  const phase1 = document.getElementById('content-phase-1');
+  const phase2 = document.getElementById('content-phase-2');
+  const phase3 = document.getElementById('content-phase-3');
+  const phase4 = document.getElementById('content-phase-4');
+
+  const node1 = document.getElementById('step-node-1');
+  const node2 = document.getElementById('step-node-2');
+  const node3 = document.getElementById('step-node-3');
+  const node4 = document.getElementById('step-node-4');
+
+  if (canvas && heroSection) {
+    const ctx = canvas.getContext('2d');
+    
+    function resizeCanvas() {
+      if (!canvas) return;
+      canvas.width = window.innerWidth * window.devicePixelRatio;
+      canvas.height = window.innerHeight * window.devicePixelRatio;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Renderizador Cinematográfico Orgânico (simulando a profundidade do restaurante)
+    let animationProgress = 0;
+    
+    function drawWorld(progress: number) {
+      if (!ctx || !canvas) return;
+      const w = canvas.width;
+      const h = canvas.height;
+
+      // Fundo escuro com camadas sutis de luz de lanternas japonesas
+      ctx.fillStyle = '#090B0E';
+      ctx.fillRect(0, 0, w, h);
+
+      // Simulação de perspectiva em 3D de vigas de madeira Yakisugi e iluminação dourada
+      const zoom = 1 + progress * 0.45;
+      const panX = Math.sin(progress * Math.PI) * 120;
+      const panY = progress * 60;
+
+      ctx.save();
+      ctx.translate(w / 2 + panX, h / 2 - panY);
+      ctx.scale(zoom, zoom);
+
+      // Luz ambiente dourada central (glowing counter)
+      const grad = ctx.createRadialGradient(0, 50, 20, 0, 50, Math.max(w, h) * 0.6);
+      grad.addColorStop(0, 'rgba(212, 175, 55, 0.18)');
+      grad.addColorStop(0.35, 'rgba(179, 143, 36, 0.08)');
+      grad.addColorStop(0.7, 'rgba(15, 20, 28, 0.4)');
+      grad.addColorStop(1, 'rgba(9, 11, 14, 0.95)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(-w, -h, w * 2, h * 2);
+
+      // Linhas arquitetônicas sutis do balcão de madeira Hinoki
+      ctx.strokeStyle = 'rgba(212, 175, 55, 0.12)';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(-w * 0.6, h * 0.25);
+      ctx.lineTo(w * 0.6, h * 0.25);
+      ctx.stroke();
+
+      // Reflexos pontuais na bancada
+      const spotGrad = ctx.createRadialGradient(0, h * 0.24, 5, 0, h * 0.24, 180);
+      spotGrad.addColorStop(0, 'rgba(243, 229, 171, 0.25)');
+      spotGrad.addColorStop(1, 'transparent');
+      ctx.fillStyle = spotGrad;
+      ctx.beginPath();
+      ctx.arc(0, h * 0.24, 180, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.restore();
+    }
+
+    // Listener de Scroll para alternar fases
+    function updateScroll() {
+      if (!heroSection) return;
+      const rect = heroSection.getBoundingClientRect();
+      const totalScrollable = heroSection.offsetHeight - window.innerHeight;
+      const currentScroll = Math.max(0, -rect.top);
+      const progress = Math.min(1, Math.max(0, currentScroll / totalScrollable));
+
+      drawWorld(progress);
+
+      // Controle de fases de texto e nós laterais
+      const nodes = [node1, node2, node3, node4];
+      const phases = [phase1, phase2, phase3, phase4];
+
+      let activeIndex = 0;
+      if (progress < 0.25) activeIndex = 0;
+      else if (progress < 0.55) activeIndex = 1;
+      else if (progress < 0.82) activeIndex = 2;
+      else activeIndex = 3;
+
+      phases.forEach((phase, idx) => {
+        if (!phase) return;
+        if (idx === activeIndex) {
+          phase.classList.remove('hidden');
+          setTimeout(() => phase.classList.remove('opacity-0'), 20);
+        } else {
+          phase.classList.add('opacity-0');
+          setTimeout(() => phase.classList.add('hidden'), 350);
+        }
+      });
+
+      nodes.forEach((node, idx) => {
+        if (!node) return;
+        const dot = node.querySelector('span:first-child');
+        if (idx === activeIndex) {
+          node.classList.remove('opacity-40');
+          dot?.classList.add('bg-[#D4AF37]');
+          dot?.classList.remove('bg-transparent');
+        } else {
+          node.classList.add('opacity-40');
+          dot?.classList.remove('bg-[#D4AF37]');
+          dot?.classList.add('bg-transparent');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', updateScroll, { passive: true });
+    drawWorld(0);
+  }
+</script>

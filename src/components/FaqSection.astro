@@ -1,0 +1,118 @@
+---
+// FaqSection.astro - Acordeão de Objeções e Perguntas Frequentes
+---
+
+<section id="faq" class="py-24 sm:py-32 bg-[#0B0E14] border-t border-white/5 relative">
+  <div class="max-w-4xl mx-auto px-6">
+    
+    <div class="text-center mb-16">
+      <span class="text-xs font-mono tracking-[0.3em] text-[#D4AF37] uppercase block mb-3">
+        06 / Dúvidas & Detalhes
+      </span>
+      <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-4">
+        Perguntas Frequentes.
+      </h2>
+      <p class="text-slate-400 text-sm sm:text-base">
+        Tudo o que você precisa saber antes de viver sua noite no Kuro.
+      </p>
+    </div>
+
+    <div class="space-y-4" id="faq-accordion">
+      
+      <!-- FAQ 1 -->
+      <div class="faq-item rounded-2xl bg-[#11141B] border border-white/10 overflow-hidden transition-all duration-300">
+        <button class="faq-trigger w-full px-6 py-5 flex items-center justify-between text-left text-white font-semibold text-base sm:text-lg focus:outline-none">
+          <span>Como funciona a reserva e qual a política de cancelamento?</span>
+          <span class="faq-icon text-[#D4AF37] text-xl transition-transform duration-300">+</span>
+        </button>
+        <div class="faq-content hidden px-6 pb-6 text-slate-400 text-sm leading-relaxed border-t border-white/5 pt-4">
+          Como atendemos apenas 12 convivas por sessão, as reservas devem ser feitas com antecedência via WhatsApp. Solicitamos um sinal de 30% do valor do menu no momento do agendamento. Cancelamentos ou alterações de data podem ser realizados sem qualquer custo com até 24 horas de antecedência.
+        </div>
+      </div>
+
+      <!-- FAQ 2 -->
+      <div class="faq-item rounded-2xl bg-[#11141B] border border-white/10 overflow-hidden transition-all duration-300">
+        <button class="faq-trigger w-full px-6 py-5 flex items-center justify-between text-left text-white font-semibold text-base sm:text-lg focus:outline-none">
+          <span>Possuem opções para quem possui alergias ou restrições alimentares?</span>
+          <span class="faq-icon text-[#D4AF37] text-xl transition-transform duration-300">+</span>
+        </button>
+        <div class="faq-content hidden px-6 pb-6 text-slate-400 text-sm leading-relaxed border-t border-white/5 pt-4">
+          Sim! Caso você possua intolerância a glúten, alergia a crustáceos ou frutos do mar específicos, basta nos avisar no momento da reserva no WhatsApp. O Itamae adaptará as etapas do seu menu com peixes e preparos compatíveis sem comprometer a harmonia da experiência.
+        </div>
+      </div>
+
+      <!-- FAQ 3 -->
+      <div class="faq-item rounded-2xl bg-[#11141B] border border-white/10 overflow-hidden transition-all duration-300">
+        <button class="faq-trigger w-full px-6 py-5 flex items-center justify-between text-left text-white font-semibold text-base sm:text-lg focus:outline-none">
+          <span>O restaurante oferece serviço de valet ou estacionamento?</span>
+          <span class="faq-icon text-[#D4AF37] text-xl transition-transform duration-300">+</span>
+        </button>
+        <div class="faq-content hidden px-6 pb-6 text-slate-400 text-sm leading-relaxed border-t border-white/5 pt-4">
+          Sim. Oferecemos serviço de valet cortesia com manobrista credenciado e seguro diretamente na entrada do restaurante, na Av. do Batel, 1850.
+        </div>
+      </div>
+
+      <!-- FAQ 4 -->
+      <div class="faq-item rounded-2xl bg-[#11141B] border border-white/10 overflow-hidden transition-all duration-300">
+        <button class="faq-trigger w-full px-6 py-5 flex items-center justify-between text-left text-white font-semibold text-base sm:text-lg focus:outline-none">
+          <span>Existe algum dress code para o restaurante?</span>
+          <span class="faq-icon text-[#D4AF37] text-xl transition-transform duration-300">+</span>
+        </button>
+        <div class="faq-content hidden px-6 pb-6 text-slate-400 text-sm leading-relaxed border-t border-white/5 pt-4">
+          Nosso ambiente é refinado, porém acolhedor. Sugerimos o traje Esporte Fino ou Casual Chic. Não permitimos a entrada com chinelos, regatas masculinas ou roupas esportivas de treino.
+        </div>
+      </div>
+
+      <!-- FAQ 5 -->
+      <div class="faq-item rounded-2xl bg-[#11141B] border border-white/10 overflow-hidden transition-all duration-300">
+        <button class="faq-trigger w-full px-6 py-5 flex items-center justify-between text-left text-white font-semibold text-base sm:text-lg focus:outline-none">
+          <span>É permitido levar vinho ou saquê próprio (taxa de rolha)?</span>
+          <span class="faq-icon text-[#D4AF37] text-xl transition-transform duration-300">+</span>
+        </button>
+        <div class="faq-content hidden px-6 pb-6 text-slate-400 text-sm leading-relaxed border-t border-white/5 pt-4">
+          Sim. Permitimos até 1 garrafa especial por casal para rótulos que não constem em nossa carta oficial. Cobramos a taxa de serviço de rolha no valor de R$ 90 por garrafa.
+        </div>
+      </div>
+
+      <!-- FAQ 6 -->
+      <div class="faq-item rounded-2xl bg-[#11141B] border border-white/10 overflow-hidden transition-all duration-300">
+        <button class="faq-trigger w-full px-6 py-5 flex items-center justify-between text-left text-white font-semibold text-base sm:text-lg focus:outline-none">
+          <span>Crianças são bem-vindas na experiência Omakase?</span>
+          <span class="faq-icon text-[#D4AF37] text-xl transition-transform duration-300">+</span>
+        </button>
+        <div class="faq-content hidden px-6 pb-6 text-slate-400 text-sm leading-relaxed border-t border-white/5 pt-4">
+          Por conta do ritmo silencioso e do menu de degustação com peixes crus e defumados que leva cerca de 2 horas e meia, o balcão Omakase é recomendado para maiores de 12 anos.
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<script>
+  // Script leve de Accordion sem dependências externas
+  const items = document.querySelectorAll('.faq-item');
+  items.forEach(item => {
+    const trigger = item.querySelector('.faq-trigger');
+    const content = item.querySelector('.faq-content');
+    const icon = item.querySelector('.faq-icon');
+
+    trigger?.addEventListener('click', () => {
+      const isOpen = !content?.classList.contains('hidden');
+      
+      // Fecha todos os outros
+      items.forEach(otherItem => {
+        otherItem.querySelector('.faq-content')?.classList.add('hidden');
+        const otherIcon = otherItem.querySelector('.faq-icon');
+        if (otherIcon) otherIcon.textContent = '+';
+      });
+
+      // Alterna o atual
+      if (!isOpen && content && icon) {
+        content.classList.remove('hidden');
+        icon.textContent = '−';
+      }
+    });
+  });
+</script>

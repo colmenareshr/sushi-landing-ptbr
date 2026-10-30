@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-kuro: #090B0E;
+    --bg-kuro-card: #11141B;
+    --bg-kuro-elevated: #181D26;
+    --gold-kuro: #D4AF37;
+    --gold-light: #F3E5AB;
+    --amber-kuro: #F5A623;
+    --text-primary: #F8F9FA;
+    --text-secondary: #94A3B8;
+    --text-muted: #64748B;
+    --border-kuro: rgba(212, 175, 55, 0.15);
+    --border-subtle: rgba(255, 255, 255, 0.08);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--bg-kuro);
+    color: var(--text-primary);
+    font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
+  }
+
+  body {
+    overflow-x: hidden;
+    background-color: var(--bg-kuro);
+  }
+
+  /* Evitar orfandad de palabras en títulos y párrafos */
+  h1, h2, h3, h4, h5, h6 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+/* Efecto de grano sutil para estética cinematográfica */
+.cinema-grain {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* Scrollbar personalizada minimalista */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #090B0E;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.3);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(212, 175, 55, 0.6);
+}
