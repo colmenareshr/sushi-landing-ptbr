@@ -9,10 +9,10 @@
     
     <!-- Video Stage com Camada de Vídeos em Blob -->
     <div class="absolute inset-0 z-0 bg-[#090B0E]" id="video-stage">
-      <video id="v-clip-1" class="absolute inset-0 w-full h-full object-cover opacity-100 will-change-transform" muted playsinline preload="auto"></video>
-      <video id="v-clip-2" class="absolute inset-0 w-full h-full object-cover opacity-0 will-change-transform" muted playsinline preload="auto"></video>
-      <video id="v-clip-3" class="absolute inset-0 w-full h-full object-cover opacity-0 will-change-transform" muted playsinline preload="auto"></video>
-      <video id="v-clip-4" class="absolute inset-0 w-full h-full object-cover opacity-0 will-change-transform" muted playsinline preload="auto"></video>
+      <video id="v-clip-1" class="absolute inset-0 w-full h-full object-cover opacity-100 will-change-transform contrast-[1.04] brightness-[1.02] saturate-[1.05]" muted playsinline preload="auto"></video>
+      <video id="v-clip-2" class="absolute inset-0 w-full h-full object-cover opacity-0 will-change-transform contrast-[1.04] brightness-[1.02] saturate-[1.05]" muted playsinline preload="auto"></video>
+      <video id="v-clip-3" class="absolute inset-0 w-full h-full object-cover opacity-0 will-change-transform contrast-[1.04] brightness-[1.02] saturate-[1.05]" muted playsinline preload="auto"></video>
+      <video id="v-clip-4" class="absolute inset-0 w-full h-full object-cover opacity-0 will-change-transform contrast-[1.04] brightness-[1.02] saturate-[1.05]" muted playsinline preload="auto"></video>
 
       <!-- Overlay Cinematográfico Leve: Claridade Máxima para Vídeos e Transições -->
       <!-- Scrim inferior direcionado para contraste do texto sem escurecer a cena -->
@@ -168,12 +168,12 @@
     const isMobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches || window.innerWidth < 860;
     const eps = isMobile ? 0.025 : 0.008; // precisão do decoder
 
-    // Definição dos segmentos de vídeo
+    // Definição dos segmentos de vídeo Full HD 1080p remasterizados com CAS
     const clipSources = [
-      { webm: '/videos/clip1.webm', mp4: '/videos/clip1.mp4' },
-      { webm: '/videos/clip2.webm', mp4: '/videos/clip2.mp4' },
-      { webm: '/videos/clip3.webm', mp4: '/videos/clip3.mp4' },
-      { webm: '/videos/clip4.webm', mp4: '/videos/clip4.mp4' }
+      { mp4: '/videos/clip1.mp4' },
+      { mp4: '/videos/clip2.mp4' },
+      { mp4: '/videos/clip3.mp4' },
+      { mp4: '/videos/clip4.mp4' }
     ];
 
     const videoElements = [
@@ -201,13 +201,13 @@
       visible: i === 0
     }));
 
-    // Função de carregamento via Blob (chave para scrubbing sem latência)
+    // Função de carregamento via Blob (chave para scrubbing sem latência em 1080p)
     function loadVideoBlob(index: number) {
       const src = clipSources[index];
       const video = videoElements[index];
       if (!src || !video) return;
 
-      const url = video.canPlayType('video/webm; codecs="vp9"') ? src.webm : src.mp4;
+      const url = src.mp4;
       
       fetch(url)
         .then(res => res.ok ? res.blob() : Promise.reject('Erro ao carregar'))
