@@ -1,6 +1,7 @@
 const { chromium } = require('C:/Users/colme/OneDrive/Documents/Claude/Projects/Branding ColmenaDev/wp-factory/node_modules/playwright');
 const path = require('path');
 const fs = require('fs');
+const { execSync } = require('child_process');
 
 async function run() {
   const outputDir = path.resolve(__dirname, '../reels');
@@ -16,16 +17,17 @@ async function run() {
   });
 
   // Configuração para formato vertical de Instagram Reels (9:16)
-  // 540x960 com escala 2x = 1080x1920 nativo
+  // O viewport e o recordVideo.size DEVEM ser estritamente idênticos (540x960)
+  // para evitar qualquer borda cinza ou desalinhamento. Depois o FFmpeg escala para 1080x1920 Full HD.
   const context = await browser.newContext({
-    viewport: { width: 480, height: 854 }, // Formato mobile 9:16 esbelto
+    viewport: { width: 540, height: 960 },
     deviceScaleFactor: 2,
     userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1',
     isMobile: true,
     hasTouch: true,
     recordVideo: {
       dir: outputDir,
-      size: { width: 1080, height: 1920 }
+      size: { width: 540, height: 960 }
     }
   });
 
@@ -125,8 +127,16 @@ async function run() {
 
   if (video) {
     const rawVideoPath = await video.path();
-    console.log('✅ Vídeo original gravado em:', rawVideoPath);
-    return rawVideoPath;
+    console.log('✅ Gravação bruta concluída em:', rawVideoPath);
+
+    const finalMp4Path = path.resolve(outputDir, 'kuro_sushi_reel_vertical.mp4');
+    console.log('🔄 Escalando para 1080x1920 Full HD com FFmpeg Lanczos...');
+
+    const ffmpegCmd = `ffmpeg -y -i "${rawVideoPath}" -vf "scale=1080:1920:flags=lanczos" -c:v libx264 -preset slow -crf 18 -pix_fmt yuv420p -r 30 -movflags +faststart "${finalMp4Path}"`;
+    execSync(ffmpegCmd, { stdio: 'inherit' });
+
+    console.log('✨ Reel vertical Full HD (1080x1920) gerado com sucesso em:', finalMp4Path);
+    return finalMp4Path;
   }
 }
 
