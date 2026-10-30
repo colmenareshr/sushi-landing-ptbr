@@ -1,93 +1,50 @@
 ---
-// HeroScrollCanvas.astro - Scroll World Interativo com Vídeos Reais Sincronizados
+// HeroScrollCanvas.astro - Scroll World Engine (Alimentado pela skill scroll-world)
+// Implementa: Blob Loading + LERP Interpolation + Decoder Seeking Coalescing + Linger Easing
 ---
 
-<section id="hero-scroll" class="relative w-full h-[360vh] bg-[#090B0E]">
-  <!-- Viewport Fixo durante o Scroll -->
+<section id="hero-scroll" class="relative w-full h-[400vh] bg-[#090B0E]">
+  <!-- Viewport Fixo durante as 4 fases do Scroll World -->
   <div class="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
     
-    <!-- Background Video Scrubbing Engine (Clips 1 a 4) -->
-    <div class="absolute inset-0 z-0 bg-[#090B0E]">
-      
-      <!-- Clip 1: A Chegada / Entrada -->
-      <video
-        id="scroll-video-1"
-        class="scroll-clip absolute inset-0 w-full h-full object-cover transition-opacity duration-700 opacity-100"
-        muted
-        playsinline
-        preload="auto"
-      >
-        <source src="/videos/clip1.webm" type="video/webm" />
-        <source src="/videos/clip1.mp4" type="video/mp4" />
-      </video>
+    <!-- Video Stage com Camada de Vídeos em Blob -->
+    <div class="absolute inset-0 z-0 bg-[#090B0E]" id="video-stage">
+      <video id="v-clip-1" class="absolute inset-0 w-full h-full object-cover opacity-100 will-change-transform" muted playsinline preload="auto"></video>
+      <video id="v-clip-2" class="absolute inset-0 w-full h-full object-cover opacity-0 will-change-transform" muted playsinline preload="auto"></video>
+      <video id="v-clip-3" class="absolute inset-0 w-full h-full object-cover opacity-0 will-change-transform" muted playsinline preload="auto"></video>
+      <video id="v-clip-4" class="absolute inset-0 w-full h-full object-cover opacity-0 will-change-transform" muted playsinline preload="auto"></video>
 
-      <!-- Clip 2: O Salão Principal -->
-      <video
-        id="scroll-video-2"
-        class="scroll-clip absolute inset-0 w-full h-full object-cover transition-opacity duration-700 opacity-0 pointer-events-none"
-        muted
-        playsinline
-        preload="auto"
-      >
-        <source src="/videos/clip2.webm" type="video/webm" />
-        <source src="/videos/clip2.mp4" type="video/mp4" />
-      </video>
-
-      <!-- Clip 3: O Balcão Omakase -->
-      <video
-        id="scroll-video-3"
-        class="scroll-clip absolute inset-0 w-full h-full object-cover transition-opacity duration-700 opacity-0 pointer-events-none"
-        muted
-        playsinline
-        preload="auto"
-      >
-        <source src="/videos/clip3.webm" type="video/webm" />
-        <source src="/videos/clip3.mp4" type="video/mp4" />
-      </video>
-
-      <!-- Clip 4: Alta Gastronomia / Prato de Autor -->
-      <video
-        id="scroll-video-4"
-        class="scroll-clip absolute inset-0 w-full h-full object-cover transition-opacity duration-700 opacity-0 pointer-events-none"
-        muted
-        playsinline
-        preload="auto"
-      >
-        <source src="/videos/clip4.webm" type="video/webm" />
-        <source src="/videos/clip4.mp4" type="video/mp4" />
-      </video>
-
-      <!-- Overlay Gradiente Cinematográfico para Legibilidade e Contraste -->
-      <div class="absolute inset-0 bg-gradient-to-t from-[#090B0E] via-[#090B0E]/60 to-[#090B0E]/75 pointer-events-none"></div>
-      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_15%,_#090B0E_92%)] pointer-events-none"></div>
+      <!-- Overlay Cinematográfico com Gradiente Suave para Legibilidade Extrema -->
+      <div class="absolute inset-0 bg-gradient-to-t from-[#090B0E] via-[#090B0E]/65 to-[#090B0E]/75 pointer-events-none"></div>
+      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_15%,_#090B0E_90%)] pointer-events-none"></div>
     </div>
 
-    <!-- Indicador Lateral de Progresso do Scroll World -->
-    <div class="hidden lg:flex flex-col gap-6 absolute right-8 top-1/2 -translate-y-1/2 z-20 font-mono text-xs tracking-widest">
-      <div class="flex items-center gap-3 group transition-all duration-300" id="step-node-1">
+    <!-- Indicador Lateral de Rota (Navegação Interativa de 4 Cenas) -->
+    <div class="hidden lg:flex flex-col gap-6 absolute right-8 top-1/2 -translate-y-1/2 z-30 font-mono text-xs tracking-widest">
+      <button type="button" class="route-node flex items-center gap-3 text-left focus:outline-none transition-all duration-300" data-index="0">
         <span class="w-2.5 h-2.5 rounded-full border border-[#D4AF37] bg-[#D4AF37] transition-all"></span>
         <span class="text-white text-[11px] uppercase tracking-wider">01 · A Chegada</span>
-      </div>
-      <div class="flex items-center gap-3 group transition-all duration-300 opacity-40" id="step-node-2">
+      </button>
+      <button type="button" class="route-node flex items-center gap-3 text-left focus:outline-none transition-all duration-300 opacity-40" data-index="1">
         <span class="w-2.5 h-2.5 rounded-full border border-[#D4AF37] bg-transparent transition-all"></span>
         <span class="text-white text-[11px] uppercase tracking-wider">02 · O Salão</span>
-      </div>
-      <div class="flex items-center gap-3 group transition-all duration-300 opacity-40" id="step-node-3">
+      </button>
+      <button type="button" class="route-node flex items-center gap-3 text-left focus:outline-none transition-all duration-300 opacity-40" data-index="2">
         <span class="w-2.5 h-2.5 rounded-full border border-[#D4AF37] bg-transparent transition-all"></span>
         <span class="text-white text-[11px] uppercase tracking-wider">03 · Balcão Omakase</span>
-      </div>
-      <div class="flex items-center gap-3 group transition-all duration-300 opacity-40" id="step-node-4">
+      </button>
+      <button type="button" class="route-node flex items-center gap-3 text-left focus:outline-none transition-all duration-300 opacity-40" data-index="3">
         <span class="w-2.5 h-2.5 rounded-full border border-[#D4AF37] bg-transparent transition-all"></span>
         <span class="text-white text-[11px] uppercase tracking-wider">04 · Pratos de Autor</span>
-      </div>
+      </button>
     </div>
 
-    <!-- Conteúdo Dinâmico por Fase do Scroll -->
-    <div class="relative z-10 max-w-5xl mx-auto px-6 text-center flex flex-col items-center">
+    <!-- Camadas de Copywriting (Uma para cada etapa do vôo de câmera) -->
+    <div class="relative z-20 max-w-5xl mx-auto px-6 text-center flex flex-col items-center">
       
-      <!-- FASE 1: Hero Principal (Above the Fold) -->
-      <div id="content-phase-1" class="transition-all duration-700 max-w-3xl">
-        <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-[#D4AF37]/30 bg-[#161B24]/80 backdrop-blur-md mb-8">
+      <!-- CENA 1: A Chegada / Hero Principal -->
+      <article class="scene-copy transition-all duration-500 max-w-3xl opacity-100" id="copy-0">
+        <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-[#D4AF37]/30 bg-[#161B24]/85 backdrop-blur-md mb-8">
           <span class="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse"></span>
           <span class="text-[11px] font-mono tracking-[0.25em] text-[#F3E5AB] uppercase">
             01 / Experiência Omakase Exclusiva
@@ -99,7 +56,7 @@
         </h1>
 
         <p class="text-base sm:text-xl text-slate-300 font-light leading-relaxed mb-10 max-w-2xl mx-auto">
-          Peixes nobres maturados a seco, técnica milenar e uma jornada sensorial imersiva para apenas 12 convidados por sessão no Batel.
+          Peixes nobres maturados a seco, técnica milenar japonesa e uma jornada sensorial imersiva para apenas 12 convidados por sessão no Batel.
         </p>
 
         <div class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full">
@@ -123,17 +80,16 @@
           </a>
         </div>
 
-        <!-- Indicador de Scroll -->
         <div class="mt-12 flex items-center justify-center gap-2 text-xs font-mono tracking-widest text-[#D4AF37]/80 uppercase animate-bounce">
           <span>Role para explorar o restaurante</span>
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
           </svg>
         </div>
-      </div>
+      </article>
 
-      <!-- FASE 2: O Salão -->
-      <div id="content-phase-2" class="hidden opacity-0 transition-all duration-700 max-w-2xl">
+      <!-- CENA 2: O Salão -->
+      <article class="scene-copy hidden opacity-0 transition-all duration-500 max-w-2xl" id="copy-1">
         <span class="text-xs font-mono tracking-[0.3em] text-[#D4AF37] uppercase block mb-3">
           02 / Atmosfera e Arquitetura
         </span>
@@ -141,12 +97,12 @@
           Silêncio, madeira nobre e penumbra acolhedora.
         </h2>
         <p class="text-slate-300 text-base sm:text-lg font-light leading-relaxed">
-          Inspirado na arquitetura Wabi-Sabi com madeira carbonizada Yakisugi e lanternas artesanais de papel Washi. Um refúgio intimista longe do ruído da cidade.
+          Inspirado na arquitetura Wabi-Sabi com madeira carbonizada Yakisugi e lanternas artesanais de papel Washi. Um refúgio intimista no coração do Batel.
         </p>
-      </div>
+      </article>
 
-      <!-- FASE 3: O Balcão Omakase -->
-      <div id="content-phase-3" class="hidden opacity-0 transition-all duration-700 max-w-2xl">
+      <!-- CENA 3: O Balcão Omakase -->
+      <article class="scene-copy hidden opacity-0 transition-all duration-500 max-w-2xl" id="copy-2">
         <span class="text-xs font-mono tracking-[0.3em] text-[#D4AF37] uppercase block mb-3">
           03 / O Balcão de 12 Lugares
         </span>
@@ -156,10 +112,10 @@
         <p class="text-slate-300 text-base sm:text-lg font-light leading-relaxed">
           Cada peça é moldada à mão em tempo real, na temperatura exata do corpo humano, e servida diretamente sobre pedra ardósia vulcânica.
         </p>
-      </div>
+      </article>
 
-      <!-- FASE 4: A Criação de Autor -->
-      <div id="content-phase-4" class="hidden opacity-0 transition-all duration-700 max-w-2xl">
+      <!-- CENA 4: A Criação de Autor -->
+      <article class="scene-copy hidden opacity-0 transition-all duration-500 max-w-2xl" id="copy-3">
         <span class="text-xs font-mono tracking-[0.3em] text-[#D4AF37] uppercase block mb-3">
           04 / Alta Gastronomia
         </span>
@@ -169,12 +125,12 @@
         <p class="text-slate-300 text-base sm:text-lg font-light leading-relaxed">
           Bluefin Otoro, Vieiras de Hokkaido, Ouriço-do-Mar e Wagyu A5 com lâminas de trufa branca e flor de sal Maldon.
         </p>
-      </div>
+      </article>
 
     </div>
 
     <!-- Badges de Prova Social Inferiores -->
-    <div class="absolute bottom-6 left-0 right-0 z-20 max-w-6xl mx-auto px-6 flex flex-wrap items-center justify-between gap-4 text-xs font-mono tracking-wider text-slate-400">
+    <div class="absolute bottom-6 left-0 right-0 z-30 max-w-6xl mx-auto px-6 flex flex-wrap items-center justify-between gap-4 text-xs font-mono tracking-wider text-slate-400">
       <div class="flex items-center gap-2">
         <span class="text-[#D4AF37]">★★★★★</span>
         <span class="text-slate-200">4.9 no Google</span>
@@ -193,105 +149,200 @@
 </section>
 
 <script>
-  // Motor de Sincronização de Vídeo / Scroll World
-  const heroSection = document.getElementById('hero-scroll');
+  // Motor Avançado Scroll-World (Técnica do scrub-engine.js)
+  // LERP interpolation + Coalesced Seeking + Blob Preload + Linger Easing
   
-  const videos = [
-    document.getElementById('scroll-video-1') as HTMLVideoElement,
-    document.getElementById('scroll-video-2') as HTMLVideoElement,
-    document.getElementById('scroll-video-3') as HTMLVideoElement,
-    document.getElementById('scroll-video-4') as HTMLVideoElement,
-  ];
+  const heroSection = document.getElementById('hero-scroll');
+  if (heroSection) {
+    const isMobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches || window.innerWidth < 860;
+    const eps = isMobile ? 0.025 : 0.008; // precisão do decoder
 
-  const phase1 = document.getElementById('content-phase-1');
-  const phase2 = document.getElementById('content-phase-2');
-  const phase3 = document.getElementById('content-phase-3');
-  const phase4 = document.getElementById('content-phase-4');
+    // Definição dos segmentos de vídeo
+    const clipSources = [
+      { webm: '/videos/clip1.webm', mp4: '/videos/clip1.mp4' },
+      { webm: '/videos/clip2.webm', mp4: '/videos/clip2.mp4' },
+      { webm: '/videos/clip3.webm', mp4: '/videos/clip3.mp4' },
+      { webm: '/videos/clip4.webm', mp4: '/videos/clip4.mp4' }
+    ];
 
-  const node1 = document.getElementById('step-node-1');
-  const node2 = document.getElementById('step-node-2');
-  const node3 = document.getElementById('step-node-3');
-  const node4 = document.getElementById('step-node-4');
+    const videoElements = [
+      document.getElementById('v-clip-1') as HTMLVideoElement,
+      document.getElementById('v-clip-2') as HTMLVideoElement,
+      document.getElementById('v-clip-3') as HTMLVideoElement,
+      document.getElementById('v-clip-4') as HTMLVideoElement
+    ];
 
-  const nodes = [node1, node2, node3, node4];
-  const phases = [phase1, phase2, phase3, phase4];
+    const copies = [
+      document.getElementById('copy-0'),
+      document.getElementById('copy-1'),
+      document.getElementById('copy-2'),
+      document.getElementById('copy-3')
+    ];
 
-  // Pré-aquecimento dos vídeos para resposta imediata
-  videos.forEach(v => {
-    if (v) {
-      v.pause();
-      v.currentTime = 0;
+    const routeNodes = Array.from(document.querySelectorAll('.route-node'));
+
+    // Estrutura de estado de cada cena para interpolação suave
+    const scenes = videoElements.map((v, i) => ({
+      video: v,
+      ready: false,
+      cur: 0,
+      target: 0,
+      visible: i === 0
+    }));
+
+    // Função de carregamento via Blob (chave para scrubbing sem latência)
+    function loadVideoBlob(index: number) {
+      const src = clipSources[index];
+      const video = videoElements[index];
+      if (!src || !video) return;
+
+      const url = video.canPlayType('video/webm; codecs="vp9"') ? src.webm : src.mp4;
+      
+      fetch(url)
+        .then(res => res.ok ? res.blob() : Promise.reject('Erro ao carregar'))
+        .then(blob => {
+          video.src = URL.createObjectURL(blob);
+          video.addEventListener('loadedmetadata', () => {
+            scenes[index].ready = true;
+          });
+        })
+        .catch(() => {
+          // Fallback para URL direta se fetch falhar
+          video.src = url;
+          scenes[index].ready = true;
+        });
     }
-  });
 
-  let ticking = false;
+    // Carregar todos os 4 clips na memória
+    scenes.forEach((_, idx) => loadVideoBlob(idx));
 
-  function onScroll() {
-    if (!ticking) {
-      window.requestAnimationFrame(() => {
-        updateScrollState();
-        ticking = false;
-      });
-      ticking = true;
-    }
-  }
+    // Linger Easing: desacelera a câmera no centro da cena para leitura do texto
+    const clamp = (x: number, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+    const smooth = (x: number) => { x = clamp(x); return x * x * (3 - 2 * x); };
+    const lingerEase = (x: number, L = 0.45) => {
+      const c = x - 0.5;
+      return (1 - L) * x + L * (4 * c * c * c + 0.5);
+    };
 
-  function updateScrollState() {
-    if (!heroSection) return;
-    const rect = heroSection.getBoundingClientRect();
-    const totalScrollable = heroSection.offsetHeight - window.innerHeight;
-    const currentScroll = Math.max(0, -rect.top);
-    const progress = Math.min(0.999, Math.max(0, currentScroll / totalScrollable));
+    let activeSceneIndex = 0;
 
-    // Determinar qual clip (0, 1, 2, 3) está ativo
-    const clipIndex = Math.min(3, Math.floor(progress * 4));
-    const subProgress = (progress * 4) - clipIndex; // 0.0 a 1.0 dentro do clip
+    // Cálculo da posição no scroll
+    function onScrollUpdate() {
+      if (!heroSection) return;
+      const rect = heroSection.getBoundingClientRect();
+      const totalScrollable = heroSection.offsetHeight - window.innerHeight;
+      const currentScroll = Math.max(0, -rect.top);
+      const progress = clamp(currentScroll / totalScrollable, 0, 0.999);
 
-    // Alternar visibilidade dos vídeos com crossfade suave
-    videos.forEach((video, idx) => {
-      if (!video) return;
-      if (idx === clipIndex) {
-        video.style.opacity = '1';
-        video.style.pointerEvents = 'auto';
-        // Sincronizar tempo do vídeo com o scroll
-        if (video.duration && !isNaN(video.duration)) {
-          video.currentTime = subProgress * video.duration;
+      // Cada um dos 4 vídeos cobre 25% do scroll
+      const segmentWidth = 1 / 4;
+      const currentSegment = Math.min(3, Math.floor(progress / segmentWidth));
+      activeSceneIndex = currentSegment;
+
+      scenes.forEach((s, idx) => {
+        // Progresso local dentro do clip (0.0 a 1.0)
+        const local = clamp((progress - idx * segmentWidth) / segmentWidth, 0, 1);
+        s.target = lingerEase(local, 0.45);
+
+        // Crossfade suave de opacidade entre clips
+        const distFromCenter = Math.abs(progress - (idx * segmentWidth + segmentWidth / 2));
+        const opacity = smooth(1 - (distFromCenter - segmentWidth * 0.25) / (segmentWidth * 0.35));
+        
+        s.visible = opacity > 0.01;
+        if (s.video) {
+          s.video.style.opacity = String(opacity);
+          s.video.style.pointerEvents = opacity > 0.5 ? 'auto' : 'none';
         }
-      } else {
-        video.style.opacity = '0';
-        video.style.pointerEvents = 'none';
+      });
+
+      // Atualizar textos e marcadores
+      copies.forEach((copy, idx) => {
+        if (!copy) return;
+        if (idx === currentSegment) {
+          copy.classList.remove('hidden');
+          setTimeout(() => copy.classList.remove('opacity-0'), 20);
+        } else {
+          copy.classList.add('opacity-0');
+          setTimeout(() => copy.classList.add('hidden'), 350);
+        }
+      });
+
+      routeNodes.forEach((node, idx) => {
+        const dot = node.querySelector('span:first-child');
+        if (idx === currentSegment) {
+          node.classList.remove('opacity-40');
+          dot?.classList.add('bg-[#D4AF37]');
+          dot?.classList.remove('bg-transparent');
+        } else {
+          node.classList.add('opacity-40');
+          dot?.classList.remove('bg-[#D4AF37]');
+          dot?.classList.add('bg-transparent');
+        }
+      });
+    }
+
+    // Loop de RAF com LERP e Seeking Coalescing (o segredo do scrub-engine.js)
+    function rafLoop() {
+      for (let i = 0; i < scenes.length; i++) {
+        const s = scenes[i];
+        if (!s.ready || !s.video) continue;
+
+        // CRUCIAL: Se o decodificador de vídeo ainda está ocupado resolvendo o frame anterior,
+        // NÃO mande outra busca! Aguarde a liberação para evitar congelamentos e engasgos.
+        if (s.video.seeking) continue;
+
+        if (!s.visible && Math.abs(s.cur - s.target) < 0.002) continue;
+
+        // Interpolação linear suave (LERP) a 18% por frame
+        s.cur += (s.target - s.cur) * 0.18;
+        
+        const dur = s.video.duration || 1;
+        const targetTime = clamp(s.cur, 0, 0.999) * dur;
+
+        if (Math.abs(s.video.currentTime - targetTime) > eps) {
+          try {
+            s.video.currentTime = targetTime;
+          } catch (e) {}
+        }
       }
+      requestAnimationFrame(rafLoop);
+    }
+
+    // Suporte para iOS: destrava os vídeos no primeiro toque
+    function primeVideos() {
+      scenes.forEach(s => {
+        if (s.video) {
+          try {
+            const p = s.video.play();
+            if (p && p.then) p.then(() => s.video.pause()).catch(() => {});
+          } catch (e) {}
+        }
+      });
+    }
+    window.addEventListener('pointerdown', primeVideos, { once: true, passive: true });
+    window.addEventListener('touchstart', primeVideos, { once: true, passive: true });
+
+    // Clique nos nós laterais para saltar suavemente para a cena
+    routeNodes.forEach((node, idx) => {
+      node.addEventListener('click', () => {
+        const totalScrollable = heroSection.offsetHeight - window.innerHeight;
+        const targetScroll = heroSection.offsetTop + (idx * 0.25 + 0.125) * totalScrollable;
+        window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+      });
     });
 
-    // Atualizar fases de texto
-    phases.forEach((phase, idx) => {
-      if (!phase) return;
-      if (idx === clipIndex) {
-        phase.classList.remove('hidden');
-        setTimeout(() => phase.classList.remove('opacity-0'), 20);
-      } else {
-        phase.classList.add('opacity-0');
-        setTimeout(() => phase.classList.add('hidden'), 350);
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          onScrollUpdate();
+          ticking = false;
+        });
+        ticking = true;
       }
-    });
+    }, { passive: true });
 
-    // Atualizar marcadores laterais
-    nodes.forEach((node, idx) => {
-      if (!node) return;
-      const dot = node.querySelector('span:first-child');
-      if (idx === clipIndex) {
-        node.classList.remove('opacity-40');
-        dot?.classList.add('bg-[#D4AF37]');
-        dot?.classList.remove('bg-transparent');
-      } else {
-        node.classList.add('opacity-40');
-        dot?.classList.remove('bg-[#D4AF37]');
-        dot?.classList.add('bg-transparent');
-      }
-    });
+    onScrollUpdate();
+    requestAnimationFrame(rafLoop);
   }
-
-  window.addEventListener('scroll', onScroll, { passive: true });
-  // Disparo inicial
-  updateScrollState();
 </script>
