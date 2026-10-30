@@ -22,3 +22,6 @@ Thumbs.db
 
 # Astro
 .astro/
+
+# Raw heavy videos
+public/videos/raw/
